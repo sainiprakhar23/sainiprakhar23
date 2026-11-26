@@ -1,8 +1,8 @@
-name: Generate Contribution Snake
+name: Generate Contribution Signal
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Daily at 00:00 UTC
+    - cron: "17 0 * * *" # Daily at 00:17 UTC
   workflow_dispatch:
 
 permissions:
@@ -17,16 +17,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Generate Gotham-themed contribution snakes
+      - name: Generate animated contribution snake
         uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           outputs: |
-            dist/github-snake.svg?palette=github&color_snake=F5C542&color_dots=1A1A1A,3E3210,7D621A,C49D2A,F5C542
-            dist/github-snake-dark.svg?palette=github-dark&color_snake=F5C542&color_dots=1A1A1A,3E3210,7D621A,C49D2A,F5C542
+            dist/github-snake.svg?color_snake=%23F5C542&color_dots=%230B0D12,%231B1B1B,%23453516,%238B6B20,%23F5C542
+            dist/github-snake-dark.svg?palette=github-dark&color_snake=%23F5C542
+            dist/github-snake.gif?color_snake=%23F5C542&color_dots=%230B0D12,%231B1B1B,%23453516,%238B6B20,%23F5C542&color_background=%230B0D12
 
-      - name: Publish SVG files to the output branch
+      - name: Publish generated animations to the output branch
         uses: crazy-max/ghaction-github-pages@v5
         with:
           target_branch: output
